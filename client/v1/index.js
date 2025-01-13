@@ -12,11 +12,16 @@ const MY_FAVORITE_DEALERS = [
   {
     'name': 'Avenue de la brique',
     'url': 'https://www.avenuedelabrique.com/promotions-et-bons-plans-lego'
+  },
+  {
+    'name': 'Un pas mal',
+    'url': 'https://www.dealabs.com/bons-plans/lego-super-mario-71406-ensemble-dextension-la-maison-cadeau-de-yoshi-2976534'
   }
 ];
 
 console.table(MY_FAVORITE_DEALERS);
 console.log(MY_FAVORITE_DEALERS[0]);
+
 
 /**
  * 🌱
