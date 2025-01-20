@@ -69,18 +69,45 @@ console.log('Number of communities:', communityNames.length);
 // 2. Create a variable and assign it the list of sets by price from lowest to highest
 // 3. Log the variable
 
+function sortByPrice(deals) {
+  return [...deals].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+}
+
+const sortedByPrice = sortByPrice(deals);
+console.log('Deals sorted by price:', sortedByPrice);
+
+
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the deals by date
 // 2. Create a variable and assign it the list of deals by date from recent to old
 // 3. Log the variable
 
+function sortByDate(deals) {
+  return [...deals].sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+const sortedByDate = sortByDate(deals);
+console.log('Deals sorted by date:', sortedByDate);
+
 // 🎯 TODO 6: Filter a specific percentage discount range
 // 1. Filter the list of deals between 50% and 75%
 // 2. Log the list
 
+function filterByDiscountRange(deals, min, max) {
+  return deals.filter(deal => deal.discount >= min && deal.discount <= max);
+}
+const filteredDeals = filterByDiscountRange(deals, 50, 75);
+console.log('Deals with discount between 50% and 75%:', filteredDeals);
+
 // 🎯 TODO 7: Average percentage discount
 // 1. Determine the average percentage discount of the deals
 // 2. Log the average
+function calculateAverageDiscount(deals) {
+  const totalDiscount = deals.reduce((sum, deal) => sum + (deal.discount || 0), 0);
+  return deals.length > 0 ? (totalDiscount / deals.length).toFixed(2) : 0;
+}
+const averageDiscount = calculateAverageDiscount(deals);
+console.log('Average percentage discount:', averageDiscount);
 
 /**
  * 🏎
@@ -105,15 +132,36 @@ console.log('Number of communities:', communityNames.length);
 // 2. Log the variable
 // 3. Log the number of deals by community
 
+const communities = deals.reduce((acc, deal) => {
+  if (!acc[deal.community]) {
+    acc[deal.community] = [];
+  }
+  acc[deal.community].push(deal);
+  return acc;
+}, {});
+console.log('Deals grouped by community:', communities);
+
+Object.entries(communities).forEach(([community, communityDeals]) => {
+  console.log(`Community: ${community}, Number of Deals: ${communityDeals.length}`);
+});
+
 // 🎯 TODO 9: Sort by price for each community
 // 1. For each community, sort the deals by discount price, from highest to lowest
 // 2. Log the sort
+
+Object.entries(communities).forEach(([community, communityDeals]) => {
+  communities[community] = communityDeals.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+});
+console.log('Deals sorted by price within each community:', communities);
 
 // 🎯 TODO 10: Sort by date for each community
 // 1. For each set, sort the deals by date, from old to recent
 // 2. Log the sort
 
-
+Object.entries(communities).forEach(([community, communityDeals]) => {
+  communities[community] = communityDeals.sort((a, b) => new Date(a.published) - new Date(b.published));
+});
+console.log('Deals sorted by date within each community:', communities);
 /**
  * 🧥
  * Cool for your effort.
@@ -405,17 +453,47 @@ const VINTED = [
 // 3. Compute the p25 price value of the listing
 // The p25 value (25th percentile) is the lower value expected to be exceeded in 25% of the vinted items
 
+
+function computeStatistics(prices) {
+  const sortedPrices = [...prices].sort((a, b) => a - b);
+  const average = (prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2);
+  const p5 = sortedPrices[Math.floor(prices.length * 0.05)];
+  const p25 = sortedPrices[Math.floor(prices.length * 0.25)];
+  return { average, p5, p25 };
+}
+
+const prices = VINTED.map(item => parseFloat(item.price));
+const { average, p5, p25 } = computeStatistics(prices);
+
+console.log('Average price:', average);
+console.log('P5 price (5th percentile):', p5);
+console.log('P25 price (25th percentile):', p25);
+
+
 // 🎯 TODO 12: Very old listed items
 // // 1. Log if we have very old items (true or false)
 // // A very old item is an item `published` more than 3 weeks ago.
+
+const now = new Date();
+const threeWeeksAgo = new Date(now.getTime() - 21 * 24 * 60 * 60 * 1000);
+
+const hasVeryOldItems = VINTED.some(item => new Date(item.published) < threeWeeksAgo);
+console.log('Has very old items:', hasVeryOldItems);
 
 // 🎯 TODO 13: Find a specific item
 // 1. Find the item with the uuid `f2c5377c-84f9-571d-8712-98902dcbb913`
 // 2. Log the item
 
+
+const specificItem = VINTED.find(item => item.uuid === 'f2c5377c-84f9-571d-8712-98902dcbb913');
+console.log('Specific item:', specificItem);
+
 // 🎯 TODO 14: Delete a specific item
 // 1. Delete the item with the uuid `f2c5377c-84f9-571d-8712-98902dcbb913`
 // 2. Log the new list of items
+
+const updatedVinted = VINTED.filter(item => item.uuid !== 'f2c5377c-84f9-571d-8712-98902dcbb913');
+console.log('Updated list after deletion:', updatedVinted);
 
 // 🎯 TODO 5: Save a favorite item
 // We declare and assign a variable called `sealedCamera`
@@ -435,6 +513,7 @@ camera.favorite = true;
 
 // 1. Log `sealedCamera` and `camera` variables
 // 2. What do you notice?
+
 
 // we make (again) a new assignment again
 sealedCamera = {
@@ -462,6 +541,9 @@ const deal = {
 
 
 
+const maxProfitability = Math.max(...prices) - deal.retail;
+console.log('Highest profitability:', maxProfitability.toFixed(2));
+
 /**
  * 🎬
  * The End: last thing to do
@@ -471,3 +553,6 @@ const deal = {
 // 🎯 LAST TODO: Save in localStorage
 // 1. Save MY_FAVORITE_DEALERS in the localStorage
 // 2. log the localStorage
+
+localStorage.setItem('MY_FAVORITE_DEALERS', JSON.stringify(MY_FAVORITE_DEALERS));
+console.log('Saved to localStorage:', JSON.parse(localStorage.getItem('MY_FAVORITE_DEALERS')));
