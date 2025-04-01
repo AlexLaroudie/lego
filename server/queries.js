@@ -1,4 +1,3 @@
-// server/queries.js
 const { connect } = require('./mongodb');
 
 (async () => {
@@ -6,24 +5,29 @@ const { connect } = require('./mongodb');
   const deals = db.collection('deals');
   const sales = db.collection('sales');
 
-  console.log('📌 1. Best discount deals');
-  console.log(await deals.find({ discount: { $ne: null } }).sort({ discount: -1 }).limit(5).toArray());
+  // 1. 🔥 Les deals les plus chauds (par température)
+  console.log('🔥 Deals les plus populaires (par température)');
+  console.log(await deals.find({ temperature: { $ne: null } }).sort({ temperature: -1 }).limit(5).toArray());
 
-  console.log('\n📌 2. Most commented deals');
-  console.log(await deals.find({ commentsCount: { $ne: null } }).sort({ commentsCount: -1 }).limit(5).toArray());
+  // 2. 📝 Les deals avec une description (filtrer ceux sans texte)
+  console.log('\n📝 Deals avec description');
+  console.log(await deals.find({ shortDescription: { $exists: true, $ne: "" } }).limit(5).toArray());
 
-  console.log('\n📌 3. Deals sorted by price');
-  console.log(await deals.find({ price: { $ne: null } }).sort({ price: 1 }).limit(5).toArray());
+  // 3. 💬 Deals où il y a eu au moins 1 commentaire
+  console.log('\n💬 Deals avec commentaires');
+  console.log(await deals.find({ commentsCount: { $gte: 1 } }).sort({ commentsCount: -1 }).limit(5).toArray());
 
-  console.log('\n📌 4. Deals sorted by date (si tu as une date)');
-  console.log(await deals.find({ date: { $exists: true } }).sort({ date: -1 }).limit(5).toArray());
+  // 4. 🛍️ Produits Vinted à moins de 5€ (filtrer sur Prix_1)
+  console.log('\n🛍️ Produits Vinted à moins de 5€');
+  console.log(await sales.find({ Prix_1: { $regex: /^([0-4],[0-9]{2}|5,00)/ } }).limit(5).toArray());
 
-  console.log('\n📌 5. Sales for a given lego set id (ex: 42156)');
-  console.log(await sales.find({ title: /42156/ }).toArray());
+  // 5. 🔎 Rechercher un mot-clé dans les titres Dealabs (ex : "Star Wars")
+  console.log('\n🔎 Deals contenant "Star Wars" dans le titre');
+  console.log(await deals.find({ title: /Star Wars/i }).toArray());
 
-  console.log('\n📌 6. Sales scraped less than 3 weeks ago (si tu as scrapedAt)');
-  const threeWeeksAgo = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000);
-  console.log(await sales.find({ scrapedAt: { $gte: threeWeeksAgo } }).toArray());
+  // 6. 🧱 Ventes Vinted avec images disponibles
+  console.log('\n🧱 Ventes Vinted avec image');
+  console.log(await sales.find({ Image_URL: { $exists: true, $ne: "" } }).limit(5).toArray());
 
   process.exit(0);
 })();
