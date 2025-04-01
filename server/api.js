@@ -1,10 +1,20 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const { connect } = require('./mongodb');
 const { ObjectId } = require('mongodb');
 
-const app = express();
+const app = express(); // ✅ déclare app d'abord
+    // ✅ puis utilise app
+
 const PORT = 8092;
+
+
+
+
+// Middleware JSON
+app.use(cors());
+app.use(express.json());
 
 let db;
 
@@ -12,9 +22,6 @@ let db;
 (async () => {
   db = await connect();
 })();
-
-// Middleware JSON
-app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('🚀 API Lego - Bienvenue !');
