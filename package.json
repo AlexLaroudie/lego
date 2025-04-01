@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^16.4.7",
+    "express": "^5.1.0",
     "mongodb": "^6.15.0"
   },
   "name": "lego",
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/AlexLaroudie/lego/issues"
   },
-  "homepage": "https://github.com/AlexLaroudie/lego#readme"
+  "homepage": "https://github.com/AlexLaroudie/lego#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
