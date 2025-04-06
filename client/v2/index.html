@@ -26,7 +26,7 @@
         </div>
         <div>
           <label for="selection-page">Page :</label>
-          <select name="page" id="selection-page"> </select>
+          <select name="page" id="selection-page"></select>
         </div>
         <div>
           <label>Ordonner par :</label>
@@ -39,9 +39,13 @@
           <select name="tri" id="tri-selection">
             <option value="price-asc">Moins cher</option>
             <option value="price-desc">Plus cher</option>
-            <option value="date-asc">Récent</option>
-            <option value="date-desc">Ancien</option>
+            <option value="date-asc">Ancien</option>
+            <option value="date-desc">Récent</option>
           </select>
+        </div>
+        <div>
+          <!-- BOUTON "Meilleures affaires" -->
+          <input type="button" id="best-deals-button" value="Meilleures affaires" />
         </div>
         <div>
           <button id="bouton-favoris">Voir les favoris</button>
@@ -52,12 +56,24 @@
       <section id="indicateurs">
         <h2>Indicateurs</h2>
         <div class="grille-indicateurs">
-          <div class="carte-indicateur">Nombre d'annonces <span class="valeur" id="nbAnnonces">0</span></div>
-          <div class="carte-indicateur">Nombre de ventes <span class="valeur" id="nbVentes">0</span></div>
-          <div class="carte-indicateur">Prix p5 <span class="valeur" id="prixP5">0</span></div>
-          <div class="carte-indicateur">Prix p25 <span class="valeur" id="prixP25">0</span></div>
-          <div class="carte-indicateur">Prix p50 <span class="valeur" id="prixP50">0</span></div>
-          <div class="carte-indicateur">Durée de vie <span class="valeur" id="dureeVie">0 jours</span></div>
+          <div class="carte-indicateur">
+            Nombre d'annonces <span class="valeur" id="nbAnnonces">0</span>
+          </div>
+          <div class="carte-indicateur">
+            Nombre de ventes <span class="valeur" id="nbVentes">0</span>
+          </div>
+          <div class="carte-indicateur">
+            Prix p5 <span class="valeur" id="prixP5">0</span>
+          </div>
+          <div class="carte-indicateur">
+            Prix p25 <span class="valeur" id="prixP25">0</span>
+          </div>
+          <div class="carte-indicateur">
+            Prix p50 <span class="valeur" id="prixP50">0</span>
+          </div>
+          <div class="carte-indicateur">
+            Durée de vie <span class="valeur" id="dureeVie">0 jours</span>
+          </div>
         </div>
       </section>
     </section>
