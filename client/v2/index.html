@@ -1,81 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>🧱 Lego | Predictability of a lego set deal</title>
+    <meta charset="utf-8" />
+    <title>🧱 LEGO DEALS FINDER</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Lego</h1>
-    <section id="options">
-      <div id="show">
-        <label for="show-select">Show:</label>
-        <select name="show" id="show-select">
-          <option value="6">6</option>
-          <option value="12">12</option>
-          <option value="24">24</option>
+    <!-- EN-TÊTE -->
+    <header id="en-tete">
+      <h1>LEGO DEALS FINDER</h1>
+      <h2>Bienvenue sur LEGO DEALS FINDER, le comparateur en ligne qui vous trouve votre prochain achat.</h2>
+    </header>
+
+    <!-- ZONE FILTRES + INDICATEURS -->
+    <section id="zone-haute">
+      <!-- Filtres -->
+      <section id="filtres">
+        <div>
+          <label for="selection-affichage">Afficher :</label>
+          <select name="affichage" id="selection-affichage">
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+          </select>
+        </div>
+        <div>
+          <label for="selection-page">Page :</label>
+          <select name="page" id="selection-page"> </select>
+        </div>
+        <div>
+          <label>Ordonner par :</label>
+          <input type="button" id="meilleure-promo" value="Par remise" />
+          <input type="button" id="plus-commente" value="Par commentaires" />
+          <input type="button" id="plus-hot" value="Par popularité" />
+        </div>
+        <div>
+          <label for="tri-selection">Trier :</label>
+          <select name="tri" id="tri-selection">
+            <option value="price-asc">Moins cher</option>
+            <option value="price-desc">Plus cher</option>
+            <option value="date-asc">Récent</option>
+            <option value="date-desc">Ancien</option>
+          </select>
+        </div>
+        <div>
+          <button id="bouton-favoris">Voir les favoris</button>
+        </div>
+      </section>
+
+      <!-- Indicateurs -->
+      <section id="indicateurs">
+        <h2>Indicateurs</h2>
+        <div class="grille-indicateurs">
+          <div class="carte-indicateur">Nombre d'annonces <span class="valeur" id="nbAnnonces">0</span></div>
+          <div class="carte-indicateur">Nombre de ventes <span class="valeur" id="nbVentes">0</span></div>
+          <div class="carte-indicateur">Prix p5 <span class="valeur" id="prixP5">0</span></div>
+          <div class="carte-indicateur">Prix p25 <span class="valeur" id="prixP25">0</span></div>
+          <div class="carte-indicateur">Prix p50 <span class="valeur" id="prixP50">0</span></div>
+          <div class="carte-indicateur">Durée de vie <span class="valeur" id="dureeVie">0 jours</span></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ZONE ANNONCES + VENTES -->
+    <div class="mise-en-page">
+      <section id="annonces"></section>
+      <section id="ventes-vinted">
+        <label for="selection-id-lego">Sélectionnez un ID LEGO :</label>
+        <select id="selection-id-lego">
+          <option disabled selected value="">Choisir un ID</option>
         </select>
-      </div>
-      <div id="page">
-        <label for="page-select">Go to page:</label>
-        <select name="page" id="page-select"> </select>
-      </div>
-      <div id="filters">
-        <label>By best discount <input type="checkbox" id="best-discount-checkbox"/></label>
-        <label>By most commented <input type="checkbox" id="most-commented-checkbox"/></label>
-        <label>By hot deals <input type="checkbox" id="hot-deals-checkbox"/></label>
-      </div>
-      
-      <div id="sort">
-        <label for="sort-select">Sort:</label>
-        <select name="sort" id="sort-select">
-          <option value="price-asc">Cheaper</option>
-          <option value="price-desc">Expensive</option>
-          <option value="date-asc">Recently published</option>
-          <option value="date-desc">Anciently published</option>
-        </select>
-      </div>
-    </section>
-    <section id="lego">
-      <h2>Lego sets</h2>
-      <div>
-        <label>Lego set id:</label>
-        <select id="lego-set-id-select"></select> 
-      </div>
-    </section>
-    <section id="indicators">
-      <h2>Indicators</h2>
-      <div>
-        <span>Number of deals</span>
-        <span id="nbDeals">0</span>
-      </div>
-      <div>
-        <span>Number of sales</span>
-        <span id="nbSales">0</span>
-      </div>
-      <div>
-        <span>p5 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p25 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p50 sales price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>Lifetime value</span>
-        <span>10 days</span>
-      </div>
-    </section>
-    <section id="sales-list">
-      <h2>Sales</h2>
-      <!-- We'll fill here with JS -->
-    </section>
-    
-    <section id="deals"></section>
-    <script type="text/javascript" charset="UTF-8" src="utils.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="portfolio.js"></script>
+        <h2>Ventes Vinted</h2>
+      </section>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="portfolio.js"></script>
   </body>
 </html>
